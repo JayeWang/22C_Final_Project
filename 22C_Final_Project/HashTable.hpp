@@ -30,8 +30,8 @@ private:
 //   private member functions
    void alloc();
    void release();
-   int hashIndex(const std::string& key);
-   int getNextHashIndex(const int& index); /* collision resolution member funtion */
+   int hashIndex(const std::string& key);/* hashing function */
+   int getNextHashIndex(const int& index,const int& offSet); /* collision resolution member funtion */
    void addEntry(const int& i,const std::string& key,const ItemType& item);
    void deleteEntry(const int& i);
    void updateStats(const int& choice);
@@ -52,6 +52,10 @@ public:
    void displayItems(void visit(ItemType &)) const;
    std::vector<Entry<ItemType>> getItems();
    void displayStatistics();
+   int getTableSize() const {return tableSize;};
+   int getNumTableItems() const {return numTableItems;}
+   double getLoadFactor() const {return loadFactor;}
+   int getNumCollisions() const {return numCollisions;}
 };
 
 
@@ -89,15 +93,18 @@ int HashTable<ItemType>::hashIndex(const std::string& key)
    return hashCode % tableSize;
 }
 
-// getNextHashIndex returns the next available index location based on the currrent
-// collision index
+// getNextHashIndex returns the next available index location
+// based on the currrent collision index
 template <class ItemType>
-int HashTable<ItemType>::getNextHashIndex(const int &index)
+int HashTable<ItemType>::getNextHashIndex(const int& index,
+                                          const int& offSet)
 {
 
-//   linear probe by just looking for the right next location
-   return (index+1) % tableSize;
+   //   linear probe by just looking for the right next location
+   //   return (index+1) % tableSize;
 
+   //   revised linear probe, using add 1 -2 +3 -4 pattern
+   return (index+offSet) % tableSize;
 }
 
 // i : the location of the entry to be added to the hash table
@@ -151,9 +158,19 @@ int HashTable<ItemType>::search(const std::string& key, const int &index)
 {
    int i = index;
    Entry<ItemType> currEntry;
+   
+   int offSet = 0;
+   int offSetCopy;
+   
    while (1)
    {
-      i = getNextHashIndex(i);
+      offSet++;
+      offSetCopy = offSet;
+
+      if (offSet%2 == 0)
+         offSetCopy = -offSet;
+
+      i = getNextHashIndex(i, offSetCopy);
       currEntry = element[i];
 
       if(currEntry.getState() == EMPTY || i == index)
@@ -170,21 +187,20 @@ int HashTable<ItemType>::search(const std::string& key, const int &index)
    return i;
 }
 
-
-// reHashing
+// reHashing, release old tableSize of Entrys and recreate a new hash
+// table with new table size(one larger the doubled original size)
 template <class ItemType>
 void HashTable<ItemType>::reHashing()
 {
+   // temperialy hold all Entries
    std::vector<Entry<ItemType>> items = getItems();
    release();
    tableSize = 2*tableSize + 1;
    alloc();
-
+   
    for(int i = 0; i < items.size(); i++ )
-   {
       insert(items[i].getKey(), items[i].getItem());
-   }
-
+   
    std::cout << "Hash Table is resized to " << tableSize << std::endl;
 }
 
@@ -233,6 +249,10 @@ HashTable<ItemType>::HashTable(const int& size):tableSize(size),numTableItems(0)
 template <class ItemType>
 bool HashTable<ItemType>::insert(const std::string &key, const ItemType& item)
 {
+   // disallow duplicate insertion
+   bool isExistAlready = isKeyExist(key);
+   if (isExistAlready)
+      return false;
 
    int i = hashIndex(key);
    if (element[i].getState() != OCCUPIED)
@@ -240,27 +260,20 @@ bool HashTable<ItemType>::insert(const std::string &key, const ItemType& item)
       addEntry(i, key, item);
       return true;
    }
-
-   // disallow duplicate insertion
-//   string currKey = element[i].getKey();
-//   if (currKey == key)
-//      return false;
    
-   ItemType itemCopy = item;
-   
-   bool isExistAlready = isKeyExist(key);
-   
-   if (isExistAlready)
-      return false;
-
+   int offSet = 0;
+   int offSetCopy;
    while (element[i].getState() == OCCUPIED)
    {
-      i = getNextHashIndex(i);
-      if (element[i].getKey() == key)
-         return false;
+      offSet++;
+      offSetCopy = offSet;
+      if (offSet%2 == 0)
+         offSetCopy = -offSet;
+      
+      i = getNextHashIndex(i, offSetCopy);
       numCollisions++;
    }
-
+   
    addEntry(i, key, item);
    return true;
 
@@ -312,7 +325,7 @@ bool HashTable<ItemType>::remove(const std::string &key)
       deleteEntry(i);
       return true;
    }
-
+   
    i = search(key, i);
 
    if (i == NOT_FOUND)

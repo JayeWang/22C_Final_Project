@@ -46,7 +46,6 @@ void process_inputString(string, string&, string&, string&, string&, string&, st
 /******************************* Main Function - Starts Here *******************************/
 int main()
 {
-
     BinarySearchTree<Student*> PrimeTree;
     BinarySearchTree<Student*> SecondTree;
     Stack<Student*> recycleBin;
@@ -109,8 +108,8 @@ int getSize()
     while(getline(infile, inputString))
         size++;
     infile.close();
-//    return getNextPrime(size * 2);
-   return 4;
+    return getNextPrime(size * 2);
+//   return 101;
 }
 /******************************* Input File ********************************* haven't completed due to the convert data. stoi stof
     Read file into three tables
