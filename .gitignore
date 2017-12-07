@@ -9,3 +9,4 @@
 *.gch
 *.xcuserstate
 .DS_Store
+.xcodeproj
