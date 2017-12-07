@@ -69,17 +69,11 @@ void HashTable<ItemType>::alloc()
    element = new Entry<ItemType> [tableSize];
 }
 
-// release release the memory the array of pointers
+// release the memory the array of 
 template <class ItemType>
 void HashTable<ItemType>::release()
 {
    delete [] element;
-   for (int i = 0 ; i < tableSize; i++)
-   {
-      element[i].setState(0);
-      element[i].setKey("");
-      element[i].setItem(0);
-   }
    element = nullptr;
    numCollisions = 0;
    numTableItems = 0;
@@ -207,8 +201,7 @@ void HashTable<ItemType>::reHashing()
    alloc();
    
    for(int i = 0; i < items.size(); i++ )
-      if (items[i].getState() == OCCUPIED)
-         insert(items[i].getKey(), items[i].getItem());
+      this->insert(items[i].getKey(), items[i].getItem());
    
    std::cout << "Hash Table is resized to " << tableSize << std::endl;
 }

@@ -25,7 +25,7 @@ private:
    
 public:
    Entry():state(0), key("no key"), item(0){};
-   ~Entry(){state = 0; key = ""; item = 0;}
+   ~Entry(){}
    void setState(const int& theState){state = theState;}
    void setKey(const std::string& theKey){key = theKey;}
    void setItem(const ItemType& theItem){item = theItem;}
