@@ -14,7 +14,7 @@ Jimmie Cook           94234524   0.98      full-time       08/04/11      87
 Kristen Mccarthy      87789460   2.57      part-time       12/04/13      37
 Isabel Zimmerman      55418766   1.23      full-time       03/04/15      72
 Denise Goodman        83615900   3.45      part-time       03/03/14      22
-Oscar Neal            83615900   1.47      part-time       03/02/11      22
+Oscar Neal            83612930   1.47      part-time       03/02/11      22
 Dana Miles            52972391   0.38      full-time       03/04/15      122
 Bernadette Taylor     57086018   0.98      part-time       03/11/15      32
 Meredith Lambert      29099997   2.97      full-time       03/08/11      23
@@ -23,3 +23,5 @@ Edward Massey         54688476   3.66      part-time       03/01/15      32
 Kyle Aguilar          12466249   3.29      full-time       03/04/12      92
 Suzanne Briggs        18528076   3.40      full-time       03/08/13      97
 Yvette Morgan         69459190   4.00      part-time       01/03/12      24
+
+
