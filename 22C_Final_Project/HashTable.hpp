@@ -199,7 +199,8 @@ void HashTable<ItemType>::reHashing()
    alloc();
    
    for(int i = 0; i < items.size(); i++ )
-      insert(items[i].getKey(), items[i].getItem());
+      if (items[i].getState() == OCCUPIED)
+         insert(items[i].getKey(), items[i].getItem());
    
    std::cout << "Hash Table is resized to " << tableSize << std::endl;
 }

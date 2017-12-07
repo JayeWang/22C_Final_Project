@@ -108,15 +108,15 @@ int getSize()
     while(getline(infile, inputString))
         size++;
     infile.close();
-    return getNextPrime(size * 2);
-//   return 101;
+//    return getNextPrime(size * 2);
+   return 2;
 }
 /******************************* Input File ********************************* haven't completed due to the convert data. stoi stof
     Read file into three tables
 ****************************************************************************/
 void inputFile(HashTable<Student*>* htable, BinarySearchTree<Student*>& PrimeTree, BinarySearchTree<Student*>& SecondTree)
 {
-    int number;
+//    int number;
     int size = 0, units = 0;
     string name;
     float gpa;
@@ -125,12 +125,14 @@ void inputFile(HashTable<Student*>* htable, BinarySearchTree<Student*>& PrimeTre
     ifstream infile("Data.txt");
 
     while(getline(infile, inputString)){
+       if (inputString.size() < 1)
+          break;
         process_inputString(inputString, firstName, lastName, id, GPA, status, enroll_Date, units_Completed);
 
         name = firstName + " " + lastName;
         gpa = 3.21;//stof(GPA);
         s = "full-time" ? true : false;
-        //if(units_Completed != "")
+        if(units_Completed != "")
             units = 102;//stoi(units_Completed);
 
         Student*  student = new Student(id, name, enroll_Date, s, gpa, units);
@@ -529,3 +531,4 @@ void readEmployee(BinarySearchTree<Employee>* treePtr)
         //exit(111); // My vision does not allow it
 
 */
+

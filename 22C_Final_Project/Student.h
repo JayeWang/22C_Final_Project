@@ -21,7 +21,6 @@ class Student
     float GPA; /* 0 - 4.0 */
     int unitCompleted;
 
-
 public:
     Student(){};
     Student(const string& theID, const string& theName, const string &enroll_Date,  bool isfullTime, const float& theGpa, const int& theUnits);
