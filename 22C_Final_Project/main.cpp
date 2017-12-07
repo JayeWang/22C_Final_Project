@@ -108,8 +108,8 @@ int getSize()
     while(getline(infile, inputString))
         size++;
     infile.close();
-//    return getNextPrime(size * 2);
-   return 2;
+    return getNextPrime(size * 2);
+//   return 2;
 }
 /******************************* Input File ********************************* haven't completed due to the convert data. stoi stof
     Read file into three tables

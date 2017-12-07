@@ -50,7 +50,7 @@ public:
    bool getItem(const std::string& key, ItemType& item);
    bool remove(const std::string& key);
    void displayItems(void visit(ItemType &)) const;
-   std::vector<Entry<ItemType>> getItems();
+   std::vector<Entry<ItemType>> getItems() const;
    void displayStatistics();
    int getTableSize() const {return tableSize;};
    int getNumTableItems() const {return numTableItems;}
@@ -362,7 +362,7 @@ void HashTable<ItemType>::displayItems(void visit(ItemType &)) const
 
 // getItems: return all Entrys that are occupied in the hash table as a vector of Entrys
 template <class ItemType>
-std::vector<Entry<ItemType>> HashTable<ItemType>::getItems()
+std::vector<Entry<ItemType>> HashTable<ItemType>::getItems() const
 {
    std::vector<Entry<ItemType>> items(0);
 
