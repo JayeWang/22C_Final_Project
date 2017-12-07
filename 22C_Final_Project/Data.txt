@@ -13,6 +13,7 @@ Edward Massey       54688476  	3.66      	part-time 	03/01/15  	32
 Wesley Valdez       84301406  	0.34      	part-time 	07/04/12  	89        
 Mary Lee            94500541  	3.67      	full-time 	01/04/13  	98        
 Isabel Zimmerman    55418766  	1.23      	full-time 	03/04/15  	72        
+Akane Ka            24253552  	3.35      	part-time 	03/12/12  	23        
 Lillian Porter      24622366  	1.5       	full-time 	10/12/14  	12        
 Bernadette Taylor   57086018  	0.98      	part-time 	03/11/15  	32        
 Akane ka            24325235  	3.9       	full-time 	03/12/15  	34        
@@ -21,6 +22,4 @@ Jimmie Cook         94234524  	0.98      	full-time 	08/04/11  	87
 Denise Goodman      83615900  	3.45      	part-time 	03/03/14  	22        
 Justin Moore        48544988  	3.78      	full-time 	03/04/16  	23        
 Kirk Holt           32667798  	4         	part-time 	03/04/15  	8         
-Nancy Cox           70892940  	2.96      	full-time 	03/04/15  	100
-Akane Ka            24253552     3.35        part-time   03/12/12    236
-
+Nancy Cox           70892940  	2.96      	full-time 	03/04/15  	100       
