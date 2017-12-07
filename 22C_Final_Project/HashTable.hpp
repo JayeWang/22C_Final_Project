@@ -74,6 +74,12 @@ template <class ItemType>
 void HashTable<ItemType>::release()
 {
    delete [] element;
+   for (int i = 0 ; i < tableSize; i++)
+   {
+      element[i].setState(0);
+      element[i].setKey("");
+      element[i].setItem(0);
+   }
    element = nullptr;
    numCollisions = 0;
    numTableItems = 0;
@@ -358,7 +364,7 @@ void HashTable<ItemType>::displayItems(void visit(ItemType &)) const
 template <class ItemType>
 std::vector<Entry<ItemType>> HashTable<ItemType>::getItems()
 {
-   std::vector<Entry<ItemType>> items;
+   std::vector<Entry<ItemType>> items(0);
 
    for (int i = 0 ; i < tableSize; i++)
    {
@@ -369,6 +375,7 @@ std::vector<Entry<ItemType>> HashTable<ItemType>::getItems()
       }
    }
 
+   std::cout << "size: " << items.size() << std::endl;
    return items;
 }
 
