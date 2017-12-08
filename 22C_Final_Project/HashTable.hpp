@@ -19,29 +19,29 @@ const int NOT_FOUND = -1;
 template <class ItemType>
 class HashTable
 {
-
+   
 private:
    Entry<ItemType> * element; /* hold the address of an array of Entrys */
    int tableSize; /* Hash table size */
    int numTableItems;/* Current number of occupied items in the table */
    double loadFactor;/* ratio of the current number of items in the dictionary to the maximum size of the hash table, loadFactor measure how full the hash table is */
    int numCollisions;/* Counter of the number of collisions */
-
-//   private member functions
+   
+   //   private member functions
    void alloc();
    void release();
-   int hashIndex(const std::string& key);
-   int getNextHashIndex(const int& index); /* collision resolution member funtion */
+   int hashIndex(const std::string& key);/* hashing function */
+   int getNextHashIndex(const int& index,const int& offSet); /* collision resolution member funtion */
    void addEntry(const int& i,const std::string& key,const ItemType& item);
    void deleteEntry(const int& i);
    void updateStats(const int& choice);
    int search(const std::string& key, const int& index);
    void reHashing();
    bool isKeyExist(const std::string& key);
-
+   
    static const int DEFAULT_SIZE = 101;
    const double MAX_LOAD_FACTOR = 0.75 ;
-
+   
 public:
    HashTable();
    HashTable(const int& size);
@@ -50,8 +50,12 @@ public:
    bool getItem(const std::string& key, ItemType& item);
    bool remove(const std::string& key);
    void displayItems(void visit(ItemType &)) const;
-   std::vector<Entry<ItemType>> getItems();
+   std::vector<Entry<ItemType>> getItems() const;
    void displayStatistics();
+   int getTableSize() const {return tableSize;};
+   int getNumTableItems() const {return numTableItems;}
+   double getLoadFactor() const {return loadFactor;}
+   int getNumCollisions() const {return numCollisions;}
 };
 
 
@@ -65,7 +69,7 @@ void HashTable<ItemType>::alloc()
    element = new Entry<ItemType> [tableSize];
 }
 
-// release release the memory the array of pointers
+// release the memory the array of
 template <class ItemType>
 void HashTable<ItemType>::release()
 {
@@ -84,20 +88,25 @@ int HashTable<ItemType>::hashIndex(const std::string& key)
    int hashCode = 0;
    for (int i = 0; i < key.size(); i++)
    {
+      //      hashCode += ((int)key[i]);
+      
       hashCode += ((int)key[i])*((int)key[i]);
    }
    return hashCode % tableSize;
 }
 
-// getNextHashIndex returns the next available index location based on the currrent
-// collision index
+// getNextHashIndex returns the next available index location
+// based on the currrent collision index
 template <class ItemType>
-int HashTable<ItemType>::getNextHashIndex(const int &index)
+int HashTable<ItemType>::getNextHashIndex(const int& index,
+                                          const int& offSet)
 {
-
-//   linear probe by just looking for the right next location
-   return (index+1) % tableSize;
-
+   
+   //      linear probe by just looking for the right next location
+   //      return (index+1) % tableSize;
+   
+   //      revised linear probe, using add 1 -2 +3 -4 pattern
+   return (index+offSet) % tableSize;
 }
 
 // i : the location of the entry to be added to the hash table
@@ -110,7 +119,7 @@ void HashTable<ItemType>::addEntry(const int& i,const std::string& key,const Ite
    element[i].setItem(item);
    element[i].setState(OCCUPIED);
    updateStats(ADD_CHOICE);
-
+   
    if (loadFactor >= MAX_LOAD_FACTOR)
       reHashing();
 }
@@ -139,7 +148,7 @@ void HashTable<ItemType>::updateStats(const int& choice)
       numTableItems++;
    else
       numTableItems--;
-
+   
    loadFactor = numTableItems*1./tableSize;
 }
 
@@ -151,40 +160,49 @@ int HashTable<ItemType>::search(const std::string& key, const int &index)
 {
    int i = index;
    Entry<ItemType> currEntry;
+   
+   int offSet = 0;
+   int offSetCopy;
+   
    while (1)
    {
-      i = getNextHashIndex(i);
+      offSet++;
+      offSetCopy = offSet;
+      
+      if (offSet%2 == 0)
+         offSetCopy = -offSet;
+      
+      i = getNextHashIndex(i, offSetCopy);
       currEntry = element[i];
-
+      
       if(currEntry.getState() == EMPTY || i == index)
          return -1; // not found
-
+      
       //getItem operation continue probing when it encounters a location in the removed state. ***important***
       if(currEntry.getState() == REMOVED)
          continue;
-
+      
       if (currEntry.getKey() == key)
          break;
    }
-
+   
    return i;
 }
 
-
-// reHashing
+// reHashing, release old tableSize of Entrys and recreate a new hash
+// table with new table size(one larger the doubled original size)
 template <class ItemType>
 void HashTable<ItemType>::reHashing()
 {
+   // temperialy hold all Entries
    std::vector<Entry<ItemType>> items = getItems();
    release();
    tableSize = 2*tableSize + 1;
    alloc();
-
+   
    for(int i = 0; i < items.size(); i++ )
-   {
-      insert(items[i].getKey(), items[i].getItem());
-   }
-
+      this->insert(items[i].getKey(), items[i].getItem());
+   
    std::cout << "Hash Table is resized to " << tableSize << std::endl;
 }
 
@@ -193,12 +211,12 @@ template <class ItemType>
 bool HashTable<ItemType>::isKeyExist(const std::string & key)
 {
    int i = hashIndex(key);
-
+   
    if (element[i].getState() == OCCUPIED &&  element[i].getKey() == key)
       return true;
-
+   
    i = search(key, i);
-
+   
    if (i == NOT_FOUND)
       return false;
    else
@@ -233,37 +251,34 @@ HashTable<ItemType>::HashTable(const int& size):tableSize(size),numTableItems(0)
 template <class ItemType>
 bool HashTable<ItemType>::insert(const std::string &key, const ItemType& item)
 {
-
+   // disallow duplicate insertion
+   bool isExistAlready = isKeyExist(key);
+   if (isExistAlready)
+      return false;
+   
    int i = hashIndex(key);
    if (element[i].getState() != OCCUPIED)
    {
       addEntry(i, key, item);
       return true;
    }
-
-   // disallow duplicate insertion
-//   string currKey = element[i].getKey();
-//   if (currKey == key)
-//      return false;
-
-   ItemType itemCopy = item;
-
-   bool isExistAlready = isKeyExist(key);
-
-   if (isExistAlready)
-      return false;
-
+   
+   int offSet = 0;
+   int offSetCopy;
    while (element[i].getState() == OCCUPIED)
    {
-      i = getNextHashIndex(i);
-      if (element[i].getKey() == key)
-         return false;
+      offSet++;
+      offSetCopy = offSet;
+      if (offSet%2 == 0)
+         offSetCopy = -offSet;
+      
+      i = getNextHashIndex(i, offSetCopy);
       numCollisions++;
    }
-
+   
    addEntry(i, key, item);
    return true;
-
+   
 }
 
 // getItem: retrive the item that is associated with the particular key
@@ -279,15 +294,15 @@ template <class ItemType>
 bool HashTable<ItemType>::getItem(const std::string &key, ItemType& item)
 {
    int i = hashIndex(key);
-
+   
    if (element[i].getState() == OCCUPIED && element[i].getKey() == key)
    {
       item = element[i].getItem();
       return true;
    }
-
+   
    i = search(key, i);
-
+   
    if (i == NOT_FOUND)
       return false;
    else
@@ -312,9 +327,9 @@ bool HashTable<ItemType>::remove(const std::string &key)
       deleteEntry(i);
       return true;
    }
-
+   
    i = search(key, i);
-
+   
    if (i == NOT_FOUND)
       return false;
    else
@@ -342,10 +357,10 @@ void HashTable<ItemType>::displayItems(void visit(ItemType &)) const
 
 // getItems: return all Entrys that are occupied in the hash table as a vector of Entrys
 template <class ItemType>
-std::vector<Entry<ItemType>> HashTable<ItemType>::getItems()
+std::vector<Entry<ItemType>> HashTable<ItemType>::getItems() const
 {
-   std::vector<Entry<ItemType>> items;
-
+   std::vector<Entry<ItemType>> items(0);
+   
    for (int i = 0 ; i < tableSize; i++)
    {
       Entry<ItemType> curr = element[i];
@@ -354,7 +369,8 @@ std::vector<Entry<ItemType>> HashTable<ItemType>::getItems()
          items.push_back(curr);
       }
    }
-
+   
+   std::cout << "size: " << items.size() << std::endl;
    return items;
 }
 
