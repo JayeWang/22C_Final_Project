@@ -3,7 +3,7 @@ Nancy Cox           70892940  	2.96      	full-time 	03/04/15  	100
 Isabel Zimmerman    55418766  	1.23      	full-time 	03/04/15  	72        
 Dora Blake          55898602  	1.45      	part-time 	02/04/11  	99        
 Yvette Morgan       69459190  	4         	part-time 	01/03/12  	24        
-Akane ka            89619733  	2.68      	part-time 	03/04/15  	22
+Akane ka            89619733  	2.68      	part-time 	03/04/15  	22        
 Carmen Holmes       98833494  	1.37      	full-time 	03/04/15  	22        
 Kristen Mccarthy    87789460  	2.57      	part-time 	12/04/13  	37        
 Edward Massey       54688476  	3.66      	part-time 	03/01/15  	32        
@@ -20,6 +20,6 @@ Jimmie Cook         94234524  	0.98      	full-time 	08/04/11  	87
 Kyle Aguilar        12466249  	3.29      	full-time 	03/04/12  	92        
 Bernadette Taylor   57086018  	0.98      	part-time 	03/11/15  	32        
 Denise Goodman      83615900  	3.45      	part-time 	03/03/14  	22        
-Stanley Griffin     44918524  	3.56      	part-time 	03/04/15  	33        
 Brendan Marsh       52894630  	3.89      	full-time 	03/04/12  	99        
 Suzanne Briggs      18528076  	3.4       	full-time 	03/08/13  	97        
+Stanley Griffin     44918524  	3.56      	part-time 	03/04/15  	33        
