@@ -27,12 +27,12 @@ public:
 	// common functions for all binary trees
  	bool isEmpty() const	{return count == 0;}
 	int size() const	    {return count;}
-	void clear()			{destroyTree(rootPtr); rootPtr = 0; count = 0;}
-	void preOrder(void visit(ItemType &)) const    {_preorder(visit, rootPtr);}
-	void inOrder(void visit(ItemType &)) const     {_inorder(visit, rootPtr);}
-	void postOrder(void visit(ItemType &)) const   {_postorder(visit, rootPtr);}
-    void breadthFirstOrder(void visit(ItemType &)) const{_breadthFirstOrder(visit, rootPtr);}
-    void printIndented(void visit(ItemType &, int&)) const{_printIndented(visit, rootPtr,0);}
+	void preOrder(void visit(ItemType &)) const             {_preorder(visit, rootPtr);}
+	void inOrder(void visit(ItemType &)) const              {_inorder(visit, rootPtr);}
+	void postOrder(void visit(ItemType &)) const            {_postorder(visit, rootPtr);}
+    void breadthFirstOrder(void visit(ItemType &)) const    {_breadthFirstOrder(visit, rootPtr);}
+    void printIndented(void visit(ItemType &, int&)) const  {_printIndented(visit, rootPtr,0);}
+    void clear (void visit (ItemType &))                    {_clear(visit,rootPtr);}
 
     //  iterative Algorithm Traverses
     void iterativePreorder(void visit(ItemType &)) const{_iterativePreorder(visit, rootPtr);}
@@ -46,7 +46,7 @@ public:
 private:
 	// delete all nodes from the tree
 	void destroyTree(BinaryNode<ItemType>* nodePtr);
-
+    void _clear(void visit(ItemType &),BinaryNode<ItemType>* nodePtr) const;
 	// copy from the tree rooted at nodePtr and returns a pointer to the copy
 	BinaryNode<ItemType>* copyTree(const BinaryNode<ItemType>* nodePtr);
 
@@ -233,5 +233,15 @@ void BinaryTree<ItemType>::_iterativeInorder(void visit(ItemType &), BinaryNode<
     }
 }
 
+template<class ItemType>
+void BinaryTree<ItemType>::_clear (void visit (ItemType &),BinaryNode<ItemType>* nodePtr) const
+{
+    if (nodePtr != NULL)
+    {
+        _clear(visit, nodePtr->getLeftPtr());
+        _clear(visit, nodePtr->getRightPtr());
+        ItemType item = nodePtr->getItem();
+        visit (item);
+    }
+}
 #endif
-

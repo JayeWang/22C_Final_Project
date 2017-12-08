@@ -29,11 +29,11 @@
 		D9521B671FD78966003DB2CD /* BinarySearchTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinarySearchTree.h; sourceTree = "<group>"; };
 		D9521B681FD78966003DB2CD /* HashTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HashTable.hpp; sourceTree = "<group>"; };
 		D9521B691FD78966003DB2CD /* Data.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Data.txt; sourceTree = "<group>"; };
-		D9521B6A1FD78966003DB2CD /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 		D9521B6B1FD78966003DB2CD /* Entry.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Entry.hpp; sourceTree = "<group>"; };
 		D9521B6C1FD78966003DB2CD /* BinaryTree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BinaryTree.h; sourceTree = "<group>"; };
 		D9521B6D1FD78966003DB2CD /* StackADT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackADT.h; sourceTree = "<group>"; };
 		D9521B6E1FD78966003DB2CD /* Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Student.h; sourceTree = "<group>"; };
+		D9C8423E1FDB403400BD7452 /* Queue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Queue.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,13 +66,13 @@
 		D9521B5E1FD78927003DB2CD /* 22C_Final_Project */ = {
 			isa = PBXGroup;
 			children = (
+				D9C8423E1FDB403400BD7452 /* Queue.h */,
 				D9521B661FD78966003DB2CD /* BinaryNode.h */,
 				D9521B671FD78966003DB2CD /* BinarySearchTree.h */,
 				D9521B6C1FD78966003DB2CD /* BinaryTree.h */,
 				D9521B691FD78966003DB2CD /* Data.txt */,
 				D9521B6B1FD78966003DB2CD /* Entry.hpp */,
 				D9521B681FD78966003DB2CD /* HashTable.hpp */,
-				D9521B6A1FD78966003DB2CD /* Queue.h */,
 				D9521B6D1FD78966003DB2CD /* StackADT.h */,
 				D9521B6E1FD78966003DB2CD /* Student.h */,
 				D9521B5F1FD78927003DB2CD /* main.cpp */,

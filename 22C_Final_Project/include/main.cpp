@@ -48,15 +48,14 @@ void displayTitle();
 void display(Student*& );
 void displayIndented(Student* & , int&); //overloading function
 void myprint(int n,int m,char *p);
-bool isPrime(int number);
-int getNextPrime(int);
+bool isPrime(long long number);
+int getNextPrime(long long);
 bool checkNameInput(string);
 bool checkIdInput(string);
 bool checkGPAInput(string);
 bool checkEnrollDateInput(string);
 bool checkUnitsCompleted(string);
-
-
+void deletePointer (Student*& );
 
 /******************************* Main Function - Starts Here *******************************/
 int main()
@@ -65,7 +64,6 @@ int main()
     BinarySearchTree<Student*> SecondTree;
     Stack<Student*> recycleBin;
     HashTable<Student*>* htable = new HashTable<Student*>(getSize());
-
     inputFile(htable,PrimeTree,SecondTree);
 
     int menu;
@@ -98,7 +96,8 @@ int main()
             case 2017:
                 function2017();             break;
             case 8:
-                showmenu();                     break;
+                showmenu();  recycleBin.clear(deletePointer);                   break;
+
             case 9:
                 quitMenu = 0;
               writeDataToFile(htable, PrimeTree, SecondTree);
@@ -107,7 +106,8 @@ int main()
                 cout << "The option does not exist. . . (Enter 8 to see the menu)\n";
         }
     }
-   // delete recycleBin;
+    PrimeTree.clear(deletePointer);
+    recycleBin.clear(deletePointer);
     delete htable;
     return 0;
 }
@@ -124,14 +124,13 @@ int getSize()
         size++;
     infile.close();
    return getNextPrime(size * 2);
-//   return 7;
+   //return 7;
 }
 /******************************* Input File ********************************* Done
     Read file into three tables
 ****************************************************************************/
 void inputFile(HashTable<Student*>* htable, BinarySearchTree<Student*>& PrimeTree, BinarySearchTree<Student*>& SecondTree)
 {
-   //    int number;
    int units;
    string name;
    float gpa;
@@ -178,7 +177,7 @@ bool addNewData(HashTable<Student*>* htable, BinarySearchTree<Student*>& PrimeTr
     string units_Completed;
     string option;
     string enroll_Date;
-    bool status = 0;
+    bool status;
     Student* checkStudent;
 
     cout << "\n -- Insert --\n";
@@ -240,7 +239,7 @@ bool addNewData(HashTable<Student*>* htable, BinarySearchTree<Student*>& PrimeTr
     else option = "";
     } while (option=="");
 
-    Student* tempStudent = new Student(id, name, enroll_Date, status, stof(GPA), stoi(units_Completed));
+    Student* tempStudent = new Student(id, name, enroll_Date, status, 10, 10/*stof(GPA), stoi(units_Completed)*/);
     string tempitem = tempStudent->getStudentID();
 
     if (htable->insert(tempStudent->getStudentID(),tempStudent))
@@ -396,7 +395,7 @@ void writeDataToFile(HashTable<Student*>* htable,const BinarySearchTree<Student*
    }
    std::vector<Entry<Student *>> items = htable->getItems();
    Student *temp;
-   for(int i = 0; i < items.size(); i++){
+   for(unsigned int i = 0; i < items.size(); i++){
       temp = items[i].getItem();
       outfile << setw(20) << left << temp->getName();
       outfile << setw(10) << left <<  temp->getStudentID() << '\t';
@@ -538,14 +537,14 @@ void display(Student*& Item)
      cout << endl;
 } // display function to pass to BST and HT traverse functions
 
-bool isPrime(int number){
+bool isPrime(long long number){
     for(int n = 2; n * n < number; n++)
         if(number % n == 0)
             return false;
     return true;
 }
 
-int getNextPrime(int number){
+int getNextPrime(long long number){
     while(!isPrime(number))
         number++;
     return number;
@@ -609,4 +608,10 @@ bool checkUnitsCompleted(string Units) {
             return false;
     return true;
 }
+
+void deletePointer (Student*& target)
+{
+    delete target;
+}
+
 /****************************************************** Reach the end of function ***************************************************/
