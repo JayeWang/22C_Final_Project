@@ -101,7 +101,9 @@ int main()
             case 8:
                 showmenu();                     break;
             case 9:
-                quitMenu = 0;               break;
+                quitMenu = 0;
+              writeDataToFile(htable, PrimeTree, SecondTree);
+              break;
             default:
                 cout << "The option does not exist. . . (Enter 8 to see the menu)\n";
         }
