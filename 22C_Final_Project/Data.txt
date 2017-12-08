@@ -8,11 +8,9 @@ Carmen Holmes       98833494  	1.37      	full-time 	03/04/15  	22
 Kristen Mccarthy    87789460  	2.57      	part-time 	12/04/13  	37        
 Edward Massey       54688476  	3.66      	part-time 	03/01/15  	32        
 Justin Moore        48544988  	3.78      	full-time 	03/04/16  	23        
-Akane ka            32667798  	4         	part-time 	03/04/15  	8         
 Meredith Lambert    29099997  	2.97      	full-time 	03/08/11  	23        
 Wesley Valdez       84301406  	0.34      	part-time 	07/04/12  	89        
 Akane ka            24325235  	3.9       	full-time 	03/12/15  	34        
-Mary Lee            94500541  	3.67      	full-time 	01/04/13  	98        
 Barny Bas           24253552  	3.35      	part-time 	03/12/12  	23        
 Tim Nichols         77370250  	2.45      	part-time 	03/04/12  	87        
 Lillian Porter      24622366  	1.5       	full-time 	10/12/14  	12        
