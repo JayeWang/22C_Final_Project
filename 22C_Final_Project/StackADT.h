@@ -1,6 +1,6 @@
 /**~*~*
-   Stack template
-*~**/
+ Stack template, borrowd from class demo, modified by YunYi
+ *~**/
 #ifndef STACK_ADT_H
 #define STACK_ADT_H
 #include <iostream>
@@ -16,37 +16,38 @@ private:
       T value;          // Value in the node
       StackNode *next;  // Pointer to next node
    };
-
+   
    StackNode *top;     // Pointer to the stack top
    int count;
-
+   
 public:
    //Constructor
    Stack(){top = NULL; count = 0;}
-
+   
    // Destructor
    ~Stack();
-
+   
    // Stack operations
    bool push(T);
    bool pop(T &);
    bool isEmpty();
    int getCount();
    bool getTop(T &);
-   void clear();
+   void clear(void visit (T &));
+   
 };
 
 /**~*~*
-   Destructor
-*~**/
+ Destructor
+ *~**/
 template <class T>
 Stack<T>::~Stack()
 {
    StackNode *currNode, *nextNode;
-
+   
    // Position nodePtr at the top of the stack.
    currNode = top;
-
+   
    // Traverse the list deleting each node.
    while (currNode) //while (currNode != NULL)
    {
@@ -57,56 +58,56 @@ Stack<T>::~Stack()
 }
 
 /**~*~*
-  Member function push pushes the argument onto
-  the stack.
-*~**/
+ Member function push pushes the argument onto
+ the stack.
+ *~**/
 template <class T>
 bool Stack<T>::push(T item)
 {
    StackNode *newNode; // Pointer to a new node
-
+   
    // Allocate a new node and store num there.
    newNode = new StackNode;
    if (!newNode)
-       return false;
+      return false;
    newNode->value = item;
-
+   
    // Update links and counter
    newNode->next = top;
    top = newNode;
    count++;
-
+   
    return true;
 }
 
 /**~*~*
-  Member function pop pops the value at the top
-  of the stack off, and copies it into the variable
-  passed as an argument.
-*~**/
+ Member function pop pops the value at the top
+ of the stack off, and copies it into the variable
+ passed as an argument.
+ *~**/
 template <class T>
 bool Stack<T>::pop(T &item)
 {
    StackNode *temp; // Temporary pointer
-
+   
    // empty stack
    if (count == 0)
-       return false;
-
+      return false;
+   
    // pop value off top of stack
    item = top->value;
    temp = top->next;
    delete top;
    top = temp;
    count--;
-
+   
    return true;
 }
 
 /**~*~*
-  Member function isEmpty returns true if the stack
-  is empty, or false otherwise.
-*~**/
+ Member function isEmpty returns true if the stack
+ is empty, or false otherwise.
+ *~**/
 template <class T>
 bool Stack<T>::isEmpty()
 {
@@ -114,43 +115,43 @@ bool Stack<T>::isEmpty()
 }
 
 /**~*~*
-  Member function getCount returns
-  the number of elements in the queue
-*~**/
+ Member function getCount returns
+ the number of elements in the queue
+ *~**/
 template <class T>
 int Stack<T>::getCount()
 {
-    return count;
+   return count;
 }
 
 /**~*~*
-  Member function getTop copies the value at the top
-  of the stack into the variable passed as an argument.
-*~**/
+ Member function getTop copies the value at the top
+ of the stack into the variable passed as an argument.
+ *~**/
 template <class T>
 bool Stack<T>::getTop(T& item)
 {
-    if (count == 0)
-        return false;
-
-    item = top->value;
-    return true;
+   if (count == 0)
+      return false;
+   
+   item = top->value;
+   return true;
 }
 
 /**~*~*
-  Member function clear delete all the element in the stack
-*~**/
+ Member function clear delete all the element in the stack
+ *~**/
 template <class T>
-void Stack<T>::clear()
+void Stack<T>::clear(void visit (T &))
 {
-   StackNode *temp; // Temporary pointer
-
+   StackNode *temp = top; // Temporary pointer
+   
    while (count!=0) // empty stack
    {
-       temp = top->next;
-       delete top;
-       top = temp;
-       count--;
+      visit (temp->value);
+      temp = temp->next;
+      count--;
    }
 }
 #endif
+
