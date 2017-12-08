@@ -88,9 +88,9 @@ int HashTable<ItemType>::hashIndex(const std::string& key)
    int hashCode = 0;
    for (int i = 0; i < key.size(); i++)
    {
-            hashCode += ((int)key[i]);
+      //            hashCode += ((int)key[i]);
       
-//      hashCode += ((int)key[i])*((int)key[i]);
+      hashCode += ((int)key[i])*((int)key[i]);
    }
    return hashCode % tableSize;
 }
@@ -103,10 +103,10 @@ int HashTable<ItemType>::getNextHashIndex(const int& index,
 {
    
    //      linear probe by just looking for the right next location
-     return (index+1) % tableSize;
+   //     return (index+1) % tableSize;
    
    //      revised linear probe, using add 1 -2 +3 -4 pattern
-//   return (index+offSet) % tableSize;
+   return (index+offSet) % tableSize;
 }
 
 // i : the location of the entry to be added to the hash table
@@ -173,6 +173,9 @@ int HashTable<ItemType>::search(const std::string& key, const int &index)
          offSetCopy = -offSet;
       
       i = getNextHashIndex(i, offSetCopy);
+      if (i < 0)
+         i = i+ tableSize;
+      
       currEntry = element[i];
       
       if(currEntry.getState() == EMPTY || i == index)
@@ -273,6 +276,9 @@ bool HashTable<ItemType>::insert(const std::string &key, const ItemType& item)
          offSetCopy = -offSet;
       
       i = getNextHashIndex(i, offSetCopy);
+      if (i < 0)
+         i = i+ tableSize;
+      
       numCollisions++;
    }
    
@@ -370,7 +376,6 @@ std::vector<Entry<ItemType>> HashTable<ItemType>::getItems() const
       }
    }
    
-   std::cout << "size: " << items.size() << std::endl;
    return items;
 }
 

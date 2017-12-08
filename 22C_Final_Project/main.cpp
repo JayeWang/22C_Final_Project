@@ -61,7 +61,6 @@ bool checkUnitsCompleted(string);
 /******************************* Main Function - Starts Here *******************************/
 int main()
 {
-
     BinarySearchTree<Student*> PrimeTree;
     BinarySearchTree<Student*> SecondTree;
     Stack<Student*> recycleBin;
@@ -124,8 +123,8 @@ int getSize()
     while(getline(infile, inputString))
         size++;
     infile.close();
-   return getNextPrime(size * 2);
-   //return 7;
+//   return getNextPrime(size * 2);
+   return 7;
 }
 /******************************* Input File ********************************* Done
     Read file into three tables
