@@ -1,4 +1,4 @@
- //
+//
 //  Entry.hpp
 //  22C_HashTable_OpenAddressing
 //
@@ -22,18 +22,18 @@ private:
    int state;
    std::string key;
    ItemType item;
-   
+
 public:
    Entry():state(0), key("no key"), item(0){};
    ~Entry(){}
    void setState(const int& theState){state = theState;}
    void setKey(const std::string& theKey){key = theKey;}
    void setItem(const ItemType& theItem){item = theItem;}
-   
+
    int getState() const {return state;}
    std::string getKey() const {return key;}
    ItemType getItem() const {return item;}
-   
+
 };
 
 #endif

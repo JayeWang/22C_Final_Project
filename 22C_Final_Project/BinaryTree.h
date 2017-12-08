@@ -39,9 +39,9 @@ public:
     void iterativeInorder(void visit(ItemType &)) const{_iterativeInorder(visit, rootPtr);}
 
 	// abstract functions to be implemented by derived class
-    virtual bool insert(bool compare(ItemType &, ItemType &), const ItemType & newData) = 0;
-	virtual bool remove(const ItemType & data) = 0;
-	virtual bool getEntry(const ItemType & anEntry, ItemType & returnedItem) const = 0;
+    virtual bool insert(int compare(ItemType &, ItemType &), const ItemType & newData) = 0;
+	virtual bool remove(int compare( ItemType &,  ItemType &), const ItemType & data) = 0;
+	virtual bool getEntry(int compare(ItemType &, ItemType &), ItemType & anEntry, ItemType & returnedItem) const = 0;
 
 private:
 	// delete all nodes from the tree
