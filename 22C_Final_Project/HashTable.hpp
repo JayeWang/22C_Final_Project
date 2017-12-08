@@ -88,9 +88,9 @@ int HashTable<ItemType>::hashIndex(const std::string& key)
    int hashCode = 0;
    for (int i = 0; i < key.size(); i++)
    {
-            hashCode += ((int)key[i]);
+//            hashCode += ((int)key[i]);
       
-//      hashCode += ((int)key[i])*((int)key[i]);
+      hashCode += ((int)key[i])*((int)key[i]);
    }
    return hashCode % tableSize;
 }
@@ -103,10 +103,10 @@ int HashTable<ItemType>::getNextHashIndex(const int& index,
 {
    
    //      linear probe by just looking for the right next location
-     return (index+1) % tableSize;
+//     return (index+1) % tableSize;
    
    //      revised linear probe, using add 1 -2 +3 -4 pattern
-//   return (index+offSet) % tableSize;
+   return (index+offSet) % tableSize;
 }
 
 // i : the location of the entry to be added to the hash table
