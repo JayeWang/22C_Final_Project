@@ -15,8 +15,6 @@
 #include <sstream>
 using namespace std;
 
-const char inputFileName[] = "";
-
 /***************************************************************** Menu Functions ***************/
 bool addNewData(HashTable<Student*>*, BinarySearchTree<Student*>&, BinarySearchTree<Student*>&);                        // Case 1
 bool deleteData(HashTable<Student*>*, BinarySearchTree<Student*>&, BinarySearchTree<Student*>&, Stack<Student*>&);      // Case 2
@@ -61,7 +59,6 @@ bool checkUnitsCompleted(string);
 /******************************* Main Function - Starts Here *******************************/
 int main()
 {
-
     BinarySearchTree<Student*> PrimeTree;
     BinarySearchTree<Student*> SecondTree;
     Stack<Student*> recycleBin;
@@ -132,8 +129,6 @@ int getSize()
 ****************************************************************************/
 void inputFile(HashTable<Student*>* htable, BinarySearchTree<Student*>& PrimeTree, BinarySearchTree<Student*>& SecondTree)
 {
-   //    int number;
-   int size = 0;
    int units;
    string name;
    float gpa;
@@ -181,7 +176,6 @@ bool addNewData(HashTable<Student*>* htable, BinarySearchTree<Student*>& PrimeTr
     string option;
     string enroll_Date;
     bool status;
-    bool returnstatus;
     Student* checkStudent;
 
     cout << "\n -- Insert --\n";
